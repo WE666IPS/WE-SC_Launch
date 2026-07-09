@@ -70,4 +70,4 @@ WE
 - GitHub: https://github.com/WE666IPS/WE-SC_Launch
 - Gitee: https://gitee.com/we666ips/we-sc_-launch
 
-##README由AI生成😂😂😂
+## README由AI生成😂😂😂
