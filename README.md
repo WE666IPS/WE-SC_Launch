@@ -64,7 +64,7 @@ MIT License
 WE
 
 ## QQ 群
-1群：188309534 (点击复制 / 按钮跳转)
+1群：188309534
 
 ## 仓库
 - GitHub: https://github.com/WE666IPS/WE-SC_Launch
