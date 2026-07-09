@@ -1,55 +1,45 @@
-# Prerequisites
-*.d
+## .NET / C# / WPF
 
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
-
-# Linker output
-*.ilk
-*.map
-*.exp
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-
-# Shared objects (inc. Windows DLLs)
+bin/
+obj/
+*.user
+*.suo
+*.cache
 *.dll
-*.so
-*.so.*
-*.dylib
-
-# Executables
 *.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
-
-# Debug files
-*.dSYM/
-*.su
-*.idb
 *.pdb
+*.nupkg
+*.snupkg
+.vs/
+*.userprefs
+launchSettings.json
 
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+## NuGet
+packages/
+*.nuget.props
+*.nuget.targets
+project.nuget.cache
 
-# debug information files
-*.dwo
+## Build
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+bld/
+
+## OS
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+## IDE
+.idea/
+*.sln.iml
+.vscode/
+*.swp
+*~
+
+## Output
+publish/
