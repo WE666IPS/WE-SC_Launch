@@ -41,7 +41,7 @@
 | 类型 | GitHub | Gitee |
 |------|--------|-------|
 | Survivalcraft Net (联机版) | survivalcraft-net/survivalcraft-net | SC-SPM/SurvivalcraftNet |
-| Survivalcraft API (模组版) | survivalcraft-api/survivalcraft-api | SC-SPM/SurvivalcraftAPI |
+| Survivalcraft API (模组版) | X | SC-SPM/SurvivalcraftAPI |
 
 ## 配置文件
 - `apps.json` - 游戏列表 + 下载保存路径
