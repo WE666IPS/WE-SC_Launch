@@ -1,8 +1,8 @@
 # SC Launch - Survivalcraft 启动器
 
-[![Language](https://img.shields.io/badge/语言-中文-blue)](README.md)
-[![Language](https://img.shields.io/badge/Language-English-blue)](README.en.md)
-[![Language](https://img.shields.io/badge/Язык-Русский-blue)](README.ru.md)
+[![语言](https://img.shields.io/badge/语言-中文-blue)](README.md)
+[![语言](https://img.shields.io/badge/Language-English-blue)](README.en.md)
+[![语言](https://img.shields.io/badge/Язык-Русский-blue)](README.ru.md)
 
 ---
 
@@ -83,4 +83,4 @@ WE
 - GitHub: https://github.com/WE666IPS/WE-SC_Launch
 - Gitee: https://gitee.com/we666ips/we-sc_-launch
 
-##README由AI生成😂😂😂
+## README由AI生成😂😂😂
