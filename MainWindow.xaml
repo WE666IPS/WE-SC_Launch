@@ -18,7 +18,7 @@
                             MouseLeftButtonDown="Title_Click">
                     <TextBlock Text="SC Launch" Foreground="#00cc66" FontWeight="Bold"
                                FontSize="16" VerticalAlignment="Center"/>
-                    <TextBlock Text="1.0-Bate" Foreground="#383838"
+                    <TextBlock Text="1.0-BETA" Foreground="#383838"
                                FontSize="11" VerticalAlignment="Center" Margin="8,0,0,0"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
