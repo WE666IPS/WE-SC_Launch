@@ -423,7 +423,7 @@ public partial class MainWindow : Window
 
         var version = new TextBlock
         {
-            Text = "v1.0-Bate", Foreground = new SolidColorBrush(Color.FromRgb(0x88, 0x88, 0x88)),
+            Text = "v1.0-BETA", Foreground = new SolidColorBrush(Color.FromRgb(0x88, 0x88, 0x88)),
             FontSize = 12, HorizontalAlignment = HorizontalAlignment.Center, Margin = new Thickness(0, 0, 0, 15)
         };
         content.Children.Add(version);
