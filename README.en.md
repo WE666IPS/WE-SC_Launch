@@ -1,12 +1,17 @@
 # SC Launch - Survivalcraft Launcher
 
-[![Language](https://img.shields.io/badge/Language-中文-blue)](README.md)
-[![Language](https://img.shields.io/badge/Language-English-blue)](README.en.md)
-[![Language](https://img.shields.io/badge/Язык-Русский-blue)](README.ru.md)
+[![语言](https://img.shields.io/badge/Language-中文-blue)](README.md)
+[![语言](https://img.shields.io/badge/Language-English-blue)](README.en.md)
+[![语言](https://img.shields.io/badge/Язык-Русский-blue)](README.ru.md)
 
 ---
 
 A C#/WPF-based Survivalcraft game launcher with multi-version management, multi-threaded downloads, auto-extraction, and multi-language support.
+
+## ABOUT
+It’s such a mess if you keep multiple Survivalcraft builds installed on a Windows PC only. Your desktop gets stuffed full of random icons, and you’ve got no clue which one corresponds to which version—staring at all of them just hurts your eyes.
+I made SC Launch specifically to sort out all the trouble of managing multiple game versions. It also comes with a beta multi-threaded game download feature, so you don’t have to waste ages trawling the internet for download sites!
+To be real, I only built this in my spare time just to practise my skills. Thinking about it now, this little project’s kinda dumb 😂
 
 ## Features
 
@@ -35,7 +40,7 @@ A C#/WPF-based Survivalcraft game launcher with multi-version management, multi-
 - 🇷🇺 Русский (ru)
 
 ## Download Sources
-| Type | GitHub | Gitee |
+|类型| GitHub | Gitee |
 |------|--------|-------|
 | Survivalcraft Net (Multiplayer) | survivalcraft-net/survivalcraft-net | SC-SPM/SurvivalcraftNet |
 | Survivalcraft API (Modded) | survivalcraft-api/survivalcraft-api | SC-SPM/SurvivalcraftAPI |
