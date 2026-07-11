@@ -43,7 +43,7 @@ To be real, I only built this in my spare time just to practise my skills. Think
 |类型| GitHub | Gitee |
 |------|--------|-------|
 | Survivalcraft Net (Multiplayer) | survivalcraft-net/survivalcraft-net | SC-SPM/SurvivalcraftNet |
-| Survivalcraft API (Modded) | survivalcraft-api/survivalcraft-api | SC-SPM/SurvivalcraftAPI |
+| Survivalcraft API (Modded) | X | SC-SPM/SurvivalcraftAPI |
 
 ## Configuration Files
 - `apps.json` - Game list + download save path
