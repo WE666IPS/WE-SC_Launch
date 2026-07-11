@@ -1,0 +1,47 @@
+## .NET / C# / WPF
+
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.dll
+*.exe
+*.pdb
+*.nupkg
+*.snupkg
+.vs/
+*.userprefs
+launchSettings.json
+
+## NuGet
+packages/
+*.nuget.props
+*.nuget.targets
+project.nuget.cache
+
+## Build
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+bld/
+
+## OS
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+## IDE
+.idea/
+*.sln.iml
+.vscode/
+*.swp
+*~
+
+## Output
+publish/
+dist/
+installer_output/

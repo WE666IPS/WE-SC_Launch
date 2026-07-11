@@ -1,0 +1,370 @@
+<Window x:Class="SCLaunch.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="SC Launch" Height="400" Width="600" MinHeight="350" MinWidth="500"
+        Background="#1a1a2e" WindowStyle="None" AllowsTransparency="True"
+        ResizeMode="CanResizeWithGrip" MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        Icon="icon.png">
+    <Border BorderBrush="#333" BorderThickness="1" CornerRadius="5" ClipToBounds="True">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- 标题栏 -->
+            <Grid Grid.Row="0" Background="#111">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="15,0" Cursor="Hand"
+                            MouseLeftButtonDown="Title_Click">
+                    <TextBlock Text="SC Launch" Foreground="#00cc66" FontWeight="Bold"
+                               FontSize="16" VerticalAlignment="Center"/>
+                    <TextBlock Text="1.0-Bate" Foreground="#383838"
+                               FontSize="11" VerticalAlignment="Center" Margin="8,0,0,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button x:Name="LangButton" Content="🌐" Height="26" Margin="0,0,5,0"
+                            Width="30" Background="Transparent" Foreground="White" BorderThickness="0"
+                            FontSize="14" Click="LangButton_Click" Cursor="Hand"/>
+                    <Button x:Name="DiscoverButton" Content="发现 ▾" Height="26" Margin="0,0,5,0"
+                            Background="#2980b9" Foreground="White" BorderThickness="0"
+                            FontSize="12" Click="DiscoverButton_Click">
+                        <Button.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem x:Name="FriendLinksMenu" Header="友情链接" Click="FriendLinks_Click"/>
+                                <MenuItem x:Name="ExtractFileMenu" Header="解压文件" Click="ExtractFile_Click"/>
+                                <Separator/>
+                                <MenuItem x:Name="AboutMenu" Header="关于" Click="About_Click"/>
+                            </ContextMenu>
+                        </Button.ContextMenu>
+                    </Button>
+                    <Button Content="─" Width="35" Height="35" Background="Transparent"
+                            Foreground="#aaa" Click="Minimize_Click" BorderThickness="0"/>
+                    <Button Content="□" Width="35" Height="35" Background="Transparent"
+                            Foreground="#aaa" Click="Maximize_Click" BorderThickness="0"/>
+                    <Button Content="✕" Width="35" Height="35" Background="Transparent"
+                            Foreground="#e74c3c" Click="Close_Click" BorderThickness="0"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- 主区域 -->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="220"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- 左侧面板 -->
+                <Border Grid.Column="0" Background="#16213e" Margin="5,0,0,0"
+                        BorderBrush="#333" BorderThickness="0,0,1,0">
+                    <Grid Margin="5,0,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock x:Name="GameNameBlock" Text=""
+                                   Foreground="White" FontSize="14" FontWeight="Bold"
+                                   Margin="10,10,10,5"/>
+                        <TextBlock x:Name="VersionBlock" Text=""
+                                   Foreground="#aaa" FontSize="12" Margin="10,0,10,8"/>
+
+                        <ListBox x:Name="AppsListBox" Grid.Row="2"
+                                 Background="Transparent" Foreground="White"
+                                 BorderThickness="0"
+                                 MouseDoubleClick="AppsListBox_MouseDoubleClick">
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="Foreground" Value="#ccc"/>
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Padding" Value="5,8"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Background" Value="#1f4068"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                            <ListBox.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem x:Name="EditMenuItem" Header="编辑" Click="EditMenuItem_Click"/>
+                                    <MenuItem x:Name="DeleteMenuItem" Header="删除" Click="DeleteMenuItem_Click"/>
+                                </ContextMenu>
+                            </ListBox.ContextMenu>
+                        </ListBox>
+
+                        <Button x:Name="AddButton" Grid.Row="3" Content="增加路径"
+                                Margin="5,5,5,8" Height="28"
+                                Background="#1f4068" Foreground="White" BorderThickness="0"
+                                Click="AddButton_Click"/>
+                    </Grid>
+                </Border>
+
+                <!-- 右侧面板 -->
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- 正常模式：显示版本信息 -->
+                    <StackPanel x:Name="InfoPanel" Grid.Row="0" Margin="20,10">
+                        <TextBlock x:Name="RightGameBlock" Text=""
+                                   Foreground="White" FontSize="16" FontWeight="Bold"/>
+                        <TextBlock x:Name="RightVersionBlock" Text=""
+                                   Foreground="#aaa" FontSize="13"/>
+                    </StackPanel>
+
+                    <!-- 正常模式：未选择版本时的提示 -->
+                    <StackPanel x:Name="HintPanel" Grid.Row="0" Margin="20,10"
+                                VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock x:Name="HintStepText" Text=""
+                                   Foreground="#666" FontSize="13" TextAlignment="Center"
+                                   TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                        <TextBlock x:Name="HintNoteText" Text=""
+                                   Foreground="#555" FontSize="11" TextAlignment="Center"
+                                   HorizontalAlignment="Center"/>
+                    </StackPanel>
+
+                    <!-- 下载模式：显示下载源选择 -->
+                    <StackPanel x:Name="DownloadPanel" Grid.Row="0" Margin="20,10" Visibility="Collapsed">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="DownloadVersionTitle" Text="下载版本" Foreground="White" FontSize="16" FontWeight="Bold"/>
+                            <Button x:Name="DownloadListToggleBtn" Content="下载列表" Margin="12,0,0,0"
+                                    Height="24" Padding="10,0" Background="#333" Foreground="#aaa"
+                                    BorderThickness="0" FontSize="11" Click="DownloadListToggle_Click"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                            <TextBlock x:Name="TypeLabel" Text="类型：" Foreground="#aaa" FontSize="12" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="TypeComboBox" Height="25" Margin="5,0,10,0"
+                                      SelectionChanged="TypeComboBox_SelectionChanged">
+                                <ComboBoxItem x:Name="TypeNet" Content="Net" IsSelected="True"/>
+                                <ComboBoxItem x:Name="TypeApi" Content="API"/>
+                            </ComboBox>
+                            <TextBlock x:Name="SourceLabel" Text="源：" Foreground="#aaa" FontSize="12" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="SourceComboBox" Height="25" Margin="5,0,0,0"
+                                      SelectionChanged="SourceComboBox_SelectionChanged">
+                                <ComboBoxItem Content="GitHub" IsSelected="True"/>
+                                <ComboBoxItem Content="Gitee"/>
+                            </ComboBox>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- 正常模式：空白区 -->
+                    <Border x:Name="InfoBorder" Grid.Row="1" Background="#111827" Margin="15,5,15,5"
+                            CornerRadius="3"/>
+
+                    <!-- 下载模式：版本列表 -->
+                    <Grid x:Name="VersionListBox" Grid.Row="1" Margin="15,5,15,5"
+                          Visibility="Collapsed">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <ListBox x:Name="VersionList" Grid.Column="0" Grid.Row="0" Background="#111827"
+                                 Foreground="White" BorderThickness="0"
+                                 ScrollViewer.CanContentScroll="False"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                 VirtualizingPanel.IsVirtualizing="False"
+                                 SelectionChanged="VersionList_SelectionChanged">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,2">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Name}" Foreground="White" FontSize="13" FontWeight="Bold"/>
+                                            <TextBlock Text="{Binding DateDisplay}" Foreground="#888" FontSize="11" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                                        </StackPanel>
+
+                                        <ItemsControl Grid.Row="1" Margin="10,4,0,0" Visibility="{Binding ShowAssets}"
+                                                      ItemsSource="{Binding Assets}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid Margin="0,2">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Grid.Column="0" Text="{Binding FileName}" Foreground="#ccc" FontSize="11" VerticalAlignment="Center"
+                                                                   TextTrimming="CharacterEllipsis" Margin="0,0,8,0"/>
+                                                        <TextBlock Grid.Column="1" Text="{Binding Size}" Foreground="#888" FontSize="10" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                                         <Button x:Name="AssetDownloadBtn" Grid.Column="2" Content="下载" Height="20" Padding="8,0"
+                                                                Background="#2980b9" Foreground="White" BorderThickness="0" FontSize="10"
+                                                                Click="AssetDownload_Click"/>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+
+                        <!-- 下载任务列表 -->
+                        <Border x:Name="DownloadTaskPanel" Grid.Column="1" Grid.Row="0"
+                                Background="#0d1117" CornerRadius="3" Margin="4,0,0,0" Width="180" Visibility="Collapsed">
+                            <Grid Margin="4">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,3">
+                                    <TextBlock x:Name="DownloadTasksTitle" Text="下载任务" Foreground="#aaa" FontSize="11" FontWeight="Bold" VerticalAlignment="Center"/>
+                                    <Button x:Name="OpenFolderBtn" Content="打开文件夹" Height="18" Padding="6,0" Margin="6,0,0,0"
+                                            Background="#333" Foreground="#ccc" BorderThickness="0" FontSize="9"
+                                            Click="OpenDownloadFolder_Click"/>
+                                </StackPanel>
+                                <ListBox x:Name="DownloadTaskList" Grid.Row="2" Background="Transparent"
+                                         Foreground="White" BorderThickness="0"
+                                         ScrollViewer.CanContentScroll="False"
+                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Margin="0,3">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding FileName}" Foreground="#ccc" FontSize="10"
+                                                           TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
+                                                <Button Grid.Row="0" Grid.Column="1" Content="{Binding PauseText}" Width="20" Height="18"
+                                                        Margin="3,0,2,0" Background="#333" Foreground="#fff" BorderThickness="0"
+                                                        FontSize="9" Click="TaskPause_Click"/>
+                                                <Button Grid.Row="0" Grid.Column="2" Content="📂" Width="20" Height="18"
+                                                        Margin="2,0,2,0" Background="#333" Foreground="#fff" BorderThickness="0"
+                                                        FontSize="9" Click="TaskOpenFolder_Click"/>
+                                                <Button Grid.Row="0" Grid.Column="3" Content="✕" Width="20" Height="18"
+                                                        Background="#a33" Foreground="#fff" BorderThickness="0"
+                                                        FontSize="9" Click="TaskDelete_Click"/>
+                                                <ProgressBar Grid.Row="1" Grid.ColumnSpan="4" Height="4" Minimum="0" Maximum="100"
+                                                             Value="{Binding Progress}" Margin="0,2"/>
+                                                <StackPanel Grid.Row="2" Grid.ColumnSpan="4" Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding ProgressText}" Foreground="#888" FontSize="9"/>
+                                                    <TextBlock Text="{Binding SpeedText}" Foreground="#888" FontSize="9" Margin="6,0,0,0"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </Grid>
+                        </Border>
+
+                        <!-- 进度条 -->
+                        <StackPanel Grid.ColumnSpan="2" Grid.Row="1" Margin="0,5,0,0" x:Name="ProgressPanel" Visibility="Collapsed">
+                            <ProgressBar x:Name="DownloadProgress" Height="20" Minimum="0" Maximum="100"/>
+                            <TextBlock x:Name="ProgressText" Text="准备下载..." Foreground="#aaa" FontSize="11" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- 底部栏 -->
+                    <Grid Grid.Row="2" Background="#111" Margin="0,0,0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- 正常模式：路径显示 -->
+                        <StackPanel x:Name="PathPanel" Grid.Column="0" Orientation="Horizontal"
+                                    VerticalAlignment="Center" Margin="10,0"
+                                    HorizontalAlignment="Left">
+                            <TextBlock x:Name="LocationLabel" Text="位置：" Foreground="#aaa"
+                                       FontSize="12" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="PathBlock" Text=""
+                                       Foreground="#ccc" FontSize="12"
+                                       VerticalAlignment="Center"
+                                       TextTrimming="CharacterEllipsis"/>
+                        </StackPanel>
+
+                        <!-- 下载模式：保存位置选择 -->
+                        <StackPanel x:Name="SavePathPanel" Grid.Column="0" Orientation="Horizontal"
+                                    VerticalAlignment="Center" Margin="10,0" Visibility="Collapsed"
+                                    HorizontalAlignment="Left">
+                            <TextBlock x:Name="SaveToLabel" Text="保存到：" Foreground="#aaa"
+                                       FontSize="12" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="SavePathBlock" Text="未选择"
+                                       Foreground="#ccc" FontSize="12"
+                                       VerticalAlignment="Center"
+                                       TextTrimming="CharacterEllipsis"/>
+                        </StackPanel>
+
+                        <!-- 右侧按钮组 -->
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,10,0">
+                            <Button x:Name="SelectSavePathBtn" Content="选择" Height="22" Margin="3,0,8,0"
+                                    Padding="8,0" Background="#333" Foreground="#aaa" BorderThickness="0"
+                                    FontSize="10" Click="SelectSavePath_Click" Visibility="Collapsed"/>
+                            <Button x:Name="DownloadButton" Content="下载"
+                                    Height="28" Margin="3,0,3,0"
+                                    Background="#2980b9" Foreground="White" BorderThickness="0"
+                                    Click="DownloadButton_Click"/>
+
+                            <Button x:Name="CancelButton" Content="取消"
+                                    Height="28" Margin="3,0,3,0" MinWidth="60"
+                                    Background="#333" Foreground="#aaa" BorderThickness="0"
+                                    Visibility="Collapsed" Click="CancelButton_Click"/>
+
+                            <Button x:Name="OpenBrowserButton" Content="浏览器"
+                                    Height="28" Margin="3,0,3,0"
+                                    Background="#8e44ad" Foreground="White" BorderThickness="0"
+                                    Visibility="Collapsed" Click="OpenBrowserButton_Click"/>
+
+                            <Button x:Name="LaunchButton" Content="SC-启动！"
+                                    Width="80" Height="28" Margin="3,0,10,0"
+                                    Background="#00cc66" Foreground="White"
+                                    FontWeight="Bold" BorderThickness="0"
+                                    Click="LaunchButton_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <!-- 首次启动语言选择覆盖层 -->
+            <Border x:Name="LangOverlay" Grid.Row="0" Grid.RowSpan="2"
+                    Background="#1a1a2e" Visibility="Visible">
+                <Grid>
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Text="Survivalcraft Launch"
+                                   Foreground="#4ade80" FontSize="26" FontWeight="Bold"
+                                   HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBlock Text="欢迎使用 / Welcome / Добро пожаловать"
+                                   Foreground="#888" FontSize="12" HorizontalAlignment="Center" Margin="0,0,0,25"/>
+                        <TextBlock Text="选择语言 / Select Language / Выберите язык"
+                                   Foreground="White" FontSize="15" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Content="中文" Width="90" Height="34" Margin="8" Background="#2980b9"
+                                    Foreground="White" BorderThickness="0" FontSize="13" Click="LangPick_Click" Tag="zh"/>
+                            <Button Content="English" Width="90" Height="34" Margin="8" Background="#27ae60"
+                                    Foreground="White" BorderThickness="0" FontSize="13" Click="LangPick_Click" Tag="en"/>
+                            <Button Content="Русский" Width="90" Height="34" Margin="8" Background="#8e44ad"
+                                    Foreground="White" BorderThickness="0" FontSize="13" Click="LangPick_Click" Tag="ru"
+                                    ToolTip="俄语均为AI翻译 / Русский — ИИ-перевод"
+                                    ToolTipService.InitialShowDelay="0" ToolTipService.BetweenShowDelay="0"/>
+                        </StackPanel>
+                        <CheckBox x:Name="SkipLangCheck" Content="下次启动跳过语言选择"
+                                  Foreground="#aaaaaa" FontSize="11" HorizontalAlignment="Center"
+                                  Margin="0,18,0,0" Cursor="Hand"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</Window>
