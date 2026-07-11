@@ -43,7 +43,7 @@
 | Тип | GitHub | Gitee |
 |------|--------|-------|
 | Survivalcraft Net (Мультиплеер) | survivalcraft-net/survivalcraft-net | SC-SPM/SurvivalcraftNet |
-| Survivalcraft API (Моды) | survivalcraft-api/survivalcraft-api | SC-SPM/SurvivalcraftAPI |
+| Survivalcraft API (Моды) | X | SC-SPM/SurvivalcraftAPI |
 
 ## Конфигурация
 - `apps.json` - Список игр + путь сохранения
